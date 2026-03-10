@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://your-domain.com/sitemap.xml
+Sitemap: https://zhangyining-xv4acah3b-huameipaigu-3072s-projects.vercel.app/sitemap.xml
