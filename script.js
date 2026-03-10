@@ -78,14 +78,23 @@ if (form) {
         body: payload
       });
 
-      if (!response.ok) throw new Error("submit failed");
+      const result = await response.json().catch(() => ({}));
+      const success = response.ok && (result.success === true || result.success === "true");
+      if (!success) {
+        const msg = typeof result.message === "string" ? result.message : "submit failed";
+        throw new Error(msg);
+      }
 
       if (formNote) formNote.textContent = "发送成功！我会尽快联系你。";
       alert(`收到啦，${name}！很高兴认识你，来自${city}的你我会认真回复。`);
       form.reset();
-    } catch {
-      if (formNote) formNote.textContent = "发送失败，请稍后再试，或直接邮件联系 954860451@qq.com。";
-      alert("发送失败，请稍后再试。");
+    } catch (error) {
+      const errText = error instanceof Error ? error.message : "";
+      const localHint = errText.includes("web server")
+        ? "请通过线上链接打开网站后再提交（不要用本地文件直接双击打开）。"
+        : "发送失败，请稍后再试，或直接邮件联系 954860451@qq.com。";
+      if (formNote) formNote.textContent = localHint;
+      alert(localHint);
     } finally {
       if (submitButton) submitButton.disabled = false;
     }
