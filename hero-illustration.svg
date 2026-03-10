@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff6cc"/>
+      <stop offset="55%" stop-color="#ffe2ea"/>
+      <stop offset="100%" stop-color="#eefee9"/>
+    </linearGradient>
+    <linearGradient id="hillA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#c7f7be"/>
+      <stop offset="100%" stop-color="#8de29f"/>
+    </linearGradient>
+    <linearGradient id="hillB" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ddffd2"/>
+      <stop offset="100%" stop-color="#b3efb1"/>
+    </linearGradient>
+    <linearGradient id="shirt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f2f2f2"/>
+    </linearGradient>
+    <linearGradient id="flower" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffb8cf"/>
+      <stop offset="100%" stop-color="#ff8db2"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#sky)"/>
+
+  <circle cx="1320" cy="170" r="84" fill="#ffd866" opacity="0.8"/>
+  <ellipse cx="250" cy="150" rx="120" ry="45" fill="#ffffff" opacity="0.85"/>
+  <ellipse cx="390" cy="150" rx="85" ry="35" fill="#ffffff" opacity="0.85"/>
+  <ellipse cx="1180" cy="210" rx="140" ry="52" fill="#ffffff" opacity="0.82"/>
+  <ellipse cx="1320" cy="210" rx="95" ry="38" fill="#ffffff" opacity="0.82"/>
+
+  <path d="M0 620 C220 540 390 570 590 640 C760 690 920 675 1100 620 C1250 575 1400 575 1600 640 L1600 900 L0 900 Z" fill="url(#hillB)"/>
+  <path d="M0 710 C260 635 470 690 680 745 C860 792 1060 790 1240 742 C1390 702 1490 700 1600 740 L1600 900 L0 900 Z" fill="url(#hillA)"/>
+
+  <circle cx="1290" cy="650" r="12" fill="url(#flower)" opacity="0.9"/>
+  <circle cx="1330" cy="676" r="10" fill="url(#flower)" opacity="0.86"/>
+  <circle cx="1376" cy="640" r="11" fill="url(#flower)" opacity="0.88"/>
+  <circle cx="1188" cy="700" r="9" fill="url(#flower)" opacity="0.85"/>
+  <circle cx="1234" cy="726" r="8" fill="url(#flower)" opacity="0.82"/>
+</svg>
