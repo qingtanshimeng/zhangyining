@@ -343,21 +343,25 @@
           <h2>如果你也想认识一个真诚的人，欢迎来信</h2>
           <p>可以简单介绍你自己，或者说说你最近最投入的一件事。合作、交流、交友都欢迎。</p>
         </div>
-        <form class="contact-form">
+        <form class="contact-form" id="contact-form">
           <label>
             你的称呼
-            <input type="text" name="name" placeholder="例如：小雨">
+            <input type="text" name="name" placeholder="例如：小雨" required>
           </label>
           <label>
             你的城市
-            <input type="text" name="city" placeholder="例如：上海">
+            <input type="text" name="city" placeholder="例如：上海" required>
+          </label>
+          <label>
+            你的联系方式
+            <input type="text" name="contact" placeholder="微信 / 邮箱 / 手机（任选其一）" required>
           </label>
           <label>
             想对我说的话
-            <textarea name="message" rows="4" placeholder="例如：我也在学 AI，也很喜欢运动，想和你交流。"></textarea>
+            <textarea name="message" rows="4" placeholder="例如：我也在学 AI，也很喜欢运动，想和你交流。" required></textarea>
           </label>
           <button type="submit" class="btn">发送打招呼</button>
-          <p class="form-note">演示页面：提交后会弹出确认提示。上线时可接入微信、邮箱或表单系统。</p>
+          <p class="form-note" id="form-note">留言将直达邮箱，通常 24 小时内回复。也可继续扩展同步到飞书/Notion。</p>
         </form>
       </div>
     </section>

@@ -1,4 +1,5 @@
-const form = document.querySelector(".contact-form");
+const form = document.querySelector("#contact-form");
+const formNote = document.querySelector("#form-note");
 const quoteEl = document.querySelector("#quote-text");
 const copyQuestionButtons = document.querySelectorAll("[data-copy-question]");
 const copyContactButtons = document.querySelectorAll("[data-copy-contact]");
@@ -48,19 +49,46 @@ if (quoteEl) {
 }
 
 if (form) {
-  form.addEventListener("submit", (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const name = form.querySelector("input[name='name']")?.value.trim();
     const city = form.querySelector("input[name='city']")?.value.trim();
+    const contact = form.querySelector("input[name='contact']")?.value.trim();
     const message = form.querySelector("textarea[name='message']")?.value.trim();
 
-    if (!name || !city || !message) {
-      alert("请先完整填写称呼、城市和留言内容，再发送哦。");
+    if (!name || !city || !contact || !message) {
+      alert("请先完整填写称呼、城市、联系方式和留言内容，再发送哦。");
       return;
     }
 
-    alert(`收到啦，${name}！很高兴认识你，来自${city}的你我会认真回复。`);
-    form.reset();
+    const submitButton = form.querySelector("button[type='submit']");
+    if (submitButton) submitButton.disabled = true;
+    if (formNote) formNote.textContent = "正在发送中，请稍候...";
+
+    const payload = new FormData(form);
+    payload.append("_subject", "网站新留言｜张一宁个人主页");
+    payload.append("_template", "table");
+    payload.append("_captcha", "false");
+    payload.append("_honey", "");
+
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/954860451@qq.com", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: payload
+      });
+
+      if (!response.ok) throw new Error("submit failed");
+
+      if (formNote) formNote.textContent = "发送成功！我会尽快联系你。";
+      alert(`收到啦，${name}！很高兴认识你，来自${city}的你我会认真回复。`);
+      form.reset();
+    } catch {
+      if (formNote) formNote.textContent = "发送失败，请稍后再试，或直接邮件联系 954860451@qq.com。";
+      alert("发送失败，请稍后再试。");
+    } finally {
+      if (submitButton) submitButton.disabled = false;
+    }
   });
 }
 
