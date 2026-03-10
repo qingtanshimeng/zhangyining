@@ -90,11 +90,23 @@ if (form) {
       form.reset();
     } catch (error) {
       const errText = error instanceof Error ? error.message : "";
-      const localHint = errText.includes("web server")
-        ? "请通过线上链接打开网站后再提交（不要用本地文件直接双击打开）。"
-        : "发送失败，请稍后再试，或直接邮件联系 954860451@qq.com。";
-      if (formNote) formNote.textContent = localHint;
-      alert(localHint);
+      const body = [
+        `称呼：${name}`,
+        `城市：${city}`,
+        `联系方式：${contact}`,
+        "",
+        "留言内容：",
+        message
+      ].join("\n");
+      const mailto = `mailto:954860451@qq.com?subject=${encodeURIComponent("网站新留言｜张一宁个人主页")}&body=${encodeURIComponent(body)}`;
+
+      if (formNote) {
+        formNote.textContent = errText.includes("web server")
+          ? "当前环境无法直连发送，已为你打开邮件草稿继续发送。"
+          : "直连通道暂时不可用，已为你打开邮件草稿继续发送。";
+      }
+      window.location.href = mailto;
+      alert("已为你打开邮件草稿，请点击发送即可送达。");
     } finally {
       if (submitButton) submitButton.disabled = false;
     }
