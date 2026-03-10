@@ -49,7 +49,7 @@ if (quoteEl) {
 }
 
 if (form) {
-  form.addEventListener("submit", async (event) => {
+  form.addEventListener("submit", (event) => {
     event.preventDefault();
     const name = form.querySelector("input[name='name']")?.value.trim();
     const city = form.querySelector("input[name='city']")?.value.trim();
@@ -61,55 +61,18 @@ if (form) {
       return;
     }
 
-    const submitButton = form.querySelector("button[type='submit']");
-    if (submitButton) submitButton.disabled = true;
-    if (formNote) formNote.textContent = "正在发送中，请稍候...";
+    const body = [
+      `称呼：${name}`,
+      `城市：${city}`,
+      `联系方式：${contact}`,
+      "",
+      "留言内容：",
+      message
+    ].join("\n");
+    const mailto = `mailto:954860451@qq.com?subject=${encodeURIComponent("网站新留言｜张一宁个人主页")}&body=${encodeURIComponent(body)}`;
 
-    const payload = new FormData(form);
-    payload.append("_subject", "网站新留言｜张一宁个人主页");
-    payload.append("_template", "table");
-    payload.append("_captcha", "false");
-    payload.append("_honey", "");
-
-    try {
-      const response = await fetch("https://formsubmit.co/ajax/954860451@qq.com", {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body: payload
-      });
-
-      const result = await response.json().catch(() => ({}));
-      const success = response.ok && (result.success === true || result.success === "true");
-      if (!success) {
-        const msg = typeof result.message === "string" ? result.message : "submit failed";
-        throw new Error(msg);
-      }
-
-      if (formNote) formNote.textContent = "发送成功！我会尽快联系你。";
-      alert(`收到啦，${name}！很高兴认识你，来自${city}的你我会认真回复。`);
-      form.reset();
-    } catch (error) {
-      const errText = error instanceof Error ? error.message : "";
-      const body = [
-        `称呼：${name}`,
-        `城市：${city}`,
-        `联系方式：${contact}`,
-        "",
-        "留言内容：",
-        message
-      ].join("\n");
-      const mailto = `mailto:954860451@qq.com?subject=${encodeURIComponent("网站新留言｜张一宁个人主页")}&body=${encodeURIComponent(body)}`;
-
-      if (formNote) {
-        formNote.textContent = errText.includes("web server")
-          ? "当前环境无法直连发送，已为你打开邮件草稿继续发送。"
-          : "直连通道暂时不可用，已为你打开邮件草稿继续发送。";
-      }
-      window.location.href = mailto;
-      alert("已为你打开邮件草稿，请点击发送即可送达。");
-    } finally {
-      if (submitButton) submitButton.disabled = false;
-    }
+    if (formNote) formNote.textContent = "已打开邮件草稿，请确认并点击发送。";
+    window.location.href = mailto;
   });
 }
 
